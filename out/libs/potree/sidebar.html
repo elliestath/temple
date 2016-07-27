@@ -991,16 +991,16 @@ function initSceneList(){
 	
 	var id = 0;
 	// this works but it looks so wrong. any better way to create a closure around pointcloud?
+	var etichette = ["outside","inside"];
 	var addPointcloud = function(pointcloud){
-		(function(pointcloud){
 			var elLi = $('<li>');
 			var elLabel = $('<label>');
 			var elInput = $('<input type="checkbox">');
 			
 			elInput[0].checked = true;
-			elInput[0].id = "scene_list_item_pointcloud_" + id;
-			elLabel[0].id = "scene_list_item_label_pointcloud_" + id;
-			elLabel[0].htmlFor = "scene_list_item_pointcloud_" + id;
+			elInput[0].id = "scene_list_item_pointcloud_" + etichette[id];
+			elLabel[0].id = "scene_list_item_label_pointcloud_" + etichette[id];
+			elLabel[0].htmlFor = "scene_list_item_pointcloud_" + etichette[id];
 			elLabel.addClass("menu-item");
 			elInput.click(function(event){
 				pointcloud.visible = event.target.checked;
@@ -1011,24 +1011,15 @@ function initSceneList(){
 			
 			elLi.append(elLabel);
 			elLabel.append(elInput);
-			var pointcloudName = " " + (pointcloud.name ? pointcloud.name : "point cloud " + id);
-			var elPointCloudName = document.createTextNode(pointcloudName);
+			var elPointCloudName = document.createTextNode(" point cloud: " + etichette[id]);
 			elLabel.append(elPointCloudName);
 			
 			scenelist.append(elLi);
-			
-			pointcloud.addEventListener("name_changed", function(e){
-				if(e.name){
-					elPointCloudName.textContent = " " + e.name;
-				}else{
-					elPointCloudName.textContent = " point cloud " + id;
-				}
-			});
-			
-			id++;
-		})(pointcloud);
-	};
-	
+
+			id++
+		}
+
+		
 	for(var i = 0; i < viewer.pointclouds.length; i++){
 		var pointcloud = viewer.pointclouds[i];
 		addPointcloud(pointcloud);
@@ -1037,6 +1028,49 @@ function initSceneList(){
 	viewer.addEventListener("pointcloud_loaded", function(event){
 		addPointcloud(event.pointcloud);
 	});
+	
+	setTimeout(function(){
+
+		var elLi = $('<li>');
+		var elLabel = $('<label>');
+		var elInput = $('<input type="checkbox">');
+		
+		elInput[0].checked = false;
+		elInput[0].id = "scene_list_item_raster";
+		elLabel[0].id = "scene_list_item_label_raster";
+		elLabel[0].htmlFor = "scene_list_item_raster";
+		elLabel.addClass("menu-item");
+		elInput.click(function(event){
+			plane1.visible = event.target.checked;
+		});
+		
+		elLi.append(elLabel);
+		elLabel.append(elInput);
+		elLabel.append(document.createTextNode("Floor Plan"));
+		
+		scenelist.append(elLi);
+
+
+		/*var elLi = $('<li>');
+		var elLabel = $('<label>');
+		var elInput = $('<input type="checkbox">');
+		
+		elInput[0].checked = false;
+		elInput[0].id = "scene_list_item_raster_2";
+		elLabel[0].id = "scene_list_item_label_raster_2";
+		elLabel[0].htmlFor = "scene_list_item_raster_2";
+		elLabel.addClass("menu-item");
+		elInput.click(function(event){
+			plane2.visible = event.target.checked;
+		});
+		
+		elLi.append(elLabel);
+		elLabel.append(elInput);
+		elLabel.append(document.createTextNode("Floor Plan"));
+		
+		scenelist.append(elLi);*/
+	}, 8600);	
+
 };
 
 initSettings = function(){
