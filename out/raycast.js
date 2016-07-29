@@ -36,6 +36,7 @@ function onDocumentMouseDown( event )
 		intersects[ 0 ].object.material.opacity=[0.3];
 		intersects[ 0 ].object.geometry.colorsNeedUpdate = true;
 
+
 		console.log("it works!");
 
 		// window.alert("Questo Ã¨ un esempio di alert incluso nello script.");
@@ -44,6 +45,7 @@ function onDocumentMouseDown( event )
 		// window.open("http://www.gazzetta.it", "_blank", " scrollbars=yes, resizable=yes, top=" + winH + ", left="+ winW +", width=400, height=400");
 		// window.open("", "MsgWindow", "resizable=yes", "top=500", "left=500", "width=100", "height=100");
 	}
+
 }
 /*
 	var intersects_3 = raycaster.intersectObjects( [cube3] );
@@ -92,6 +94,8 @@ function onMouseMove( event ) {
 		intersects[ 0 ].object.material.color.setRGB(1,0.3,1);
 		intersects[ 0 ].object.material.opacity=[0.3];
 		intersects[ 0 ].object.geometry.colorsNeedUpdate = true;
+		document.getElementById("potree_right_sidebar_container").style.zIndex = "10";
+
 	}
 	else {
 		cube.geometry.colorsNeedUpdate = true;
@@ -103,6 +107,8 @@ function onMouseMove( event ) {
 
 		cylinder.geometry.colorsNeedUpdate = true;
 		cylinder.material.opacity=[0];
+		document.getElementById("potree_right_sidebar_container").style.zIndex = "0";
+
 	}
 
 }
