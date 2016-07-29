@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>Potree Viewer</title>
+    <title>Hephaistus Temple</title>
 
 	<link rel="stylesheet" type="text/css" href="libs/potree/potree.css">
 	<link rel="stylesheet" type="text/css" href="libs/jquery-ui-1.11.4/jquery-ui.css">
@@ -84,46 +84,80 @@
 		//	
 		//);
 		
-		
-
 		viewer.addPointCloud("pointclouds/out/cloud.js");
 		viewer.addPointCloud("pointclouds/interior/cloud.js");
 		
 		viewer.loadGUI();
 
-		var materialImg1 = THREE.ImageUtils.loadTexture('test/katopsi.bmp');
+		var materialImg1 = THREE.ImageUtils.loadTexture('../rasterData/katopsi.bmp');
 		var img1 = new THREE.MeshBasicMaterial({ map: materialImg1, transparent:true });
 
 		planes=new THREE.Object3D();
 
-		plane1 = new THREE.Mesh(new THREE.PlaneGeometry(504, 245),img1);
-		plane1.overdraw = true;
-		plane1.rotation.x = (-Math.PI / 2);
-	    plane1.rotation.z = -0.22;
-	    plane1.rotation.y = 0;
-	    plane1.position.x = 0;
-	    plane1.position.y = 0;
-	    plane1.position.z = 0;
-	    plane1.scale.x = 0.07;
-	    plane1.scale.y = 0.07;
-	    plane1.scale.z= 0.07;   
+		plan1 = new THREE.Mesh(new THREE.PlaneGeometry(504, 245),img1);
+		/*plane1.overdraw = true;*/
+		plan1.rotation.x = (-Math.PI / 2);
+	    plan1.rotation.z = -0.22;
+	    plan1.rotation.y = 0;
+	    plan1.position.x = 0;
+	    plan1.position.y = 0;
+	    plan1.position.z = 0;
+	    plan1.scale.x = 0.07;
+	    plan1.scale.y = 0.07;
+	    plan1.scale.z= 0.07;   
+
+	    var materialImg2 = THREE.ImageUtils.loadTexture('../rasterData/SOUTH_MOSAIC.png');
+		var img2 = new THREE.MeshBasicMaterial({ map: materialImg2, transparent:true });
+
+		plan2 = new THREE.Mesh(new THREE.PlaneGeometry(11123, 3121),img2);
+		plan2.rotation.x = 0;
+	    plan2.rotation.z = 0;
+	    plan2.rotation.y = -0.22;
+	    plan2.position.x = -1.2;
+	    plan2.position.y = 5.2;
+	    plan2.position.z = 8.5;
+	    plan2.scale.x = 0.003;
+	    plan2.scale.y = 0.003;
+	    plan2.scale.z= 0.003;   	
+		
+		plan1.visible=false;
+		plan2.visible=false;
+		planes.add(plan1, plan2);
 
 		viewer.scenePointCloud.add(planes);
-		planes.add(plane1);
-		plane1.visible=false;
-
 		
 		hotspots = new THREE.Object3D();
 
-		geom = new THREE.BoxGeometry(0.3 , 0.8, 0.5 )
-		mat = new THREE.MeshBasicMaterial({color: 0xFF00FF, transparent: false, opacity: 0})
+		geom = new THREE.BoxGeometry(0.1 , 0.5, 0.8 )
+		mat = new THREE.MeshBasicMaterial({color: 0xFF00FF, transparent: true, opacity: 0})
 		cube = new THREE.Mesh(geom, mat );
-		cube.position.x = -16;
-		cube.position.y = 8.0;
-		cube.position.z = 0.21;
+		cube.position.x = 62.4; //real coordinates from obj file (not las!)
+		cube.position.y = 104.6;
+		cube.position.z = 8.4;
+
+		geom2 = new THREE.BoxGeometry(1 , 12.5, 0.7 )
+		mat2 = new THREE.MeshBasicMaterial({color: 0xFF00FF, transparent: true, opacity: 0})
+		cube2 = new THREE.Mesh(geom2, mat2 );
+		cube2.position.x = 63.31;
+		cube2.position.y = 108.36;
+		cube2.position.z = 7.52;
+		cube2.rotation.x = 0;
+	    cube2.rotation.z = -0.22;
+
+	    geom3 = new THREE.CylinderGeometry( 0.5, 0.7, 6, 32, 7 );
+		mat3 = new THREE.MeshBasicMaterial( {color: 0xFF00FF, transparent: true, opacity: 0} );
+		cylinder = new THREE.Mesh( geom3, mat3 );
+		cylinder.position.x = 64.00;
+		cylinder.position.y = 109.60;
+		cylinder.position.z = 3.78;
+		cylinder.rotation.x = (Math.PI / 2);
 
 		viewer.scenePointCloud.add(hotspots);
-		hotspots.add(cube);
+		viewer.referenceFrame.add(hotspots)
+		hotspots.add(cube, cube2, cylinder);
+
+		document.addEventListener('mousemove', onMouseMove, false);
+		document.addEventListener('mousedown', onDocumentMouseDown, false);
 		
 	</script>
   </body>

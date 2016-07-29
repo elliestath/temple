@@ -24,24 +24,28 @@ function onDocumentMouseDown( event )
 	raycaster.setFromCamera( mouse, camera );
 
 	// create an array containing all objects in the scene with which the ray intersects
-	var intersects = raycaster.intersectObjects( [cube] );
+	var intersects = raycaster.intersectObjects( [cube, cube2, cylinder] );
 
 	// if there is one (or more) intersections
 	if ( intersects.length > 0 )
 	{
 		//console.log("Hit right @ " + toString( intersects[0].point ) )
-		window.open("torre_web.html")
 		// change the color of the closest face.
 		//intersects[0].object.callback();
-		intersects[ 0 ].face.color.setRGB( 0.8 * Math.random() + 0.2, 0, 0 );
+		intersects[ 0 ].object.material.color.setRGB(0.3,0.3,1); //blue
+		intersects[ 0 ].object.material.opacity=[0.3];
 		intersects[ 0 ].object.geometry.colorsNeedUpdate = true;
+
+		console.log("it works!");
+
 		// window.alert("Questo Ã¨ un esempio di alert incluso nello script.");
 		winW = ""+(screen.width / 2) -200 ;
 		winH = ""+(screen.height / 2) -200 ;
 		// window.open("http://www.gazzetta.it", "_blank", " scrollbars=yes, resizable=yes, top=" + winH + ", left="+ winW +", width=400, height=400");
 		// window.open("", "MsgWindow", "resizable=yes", "top=500", "left=500", "width=100", "height=100");
 	}
-
+}
+/*
 	var intersects_3 = raycaster.intersectObjects( [cube3] );
 
 	// if there is one (or more) intersections
@@ -62,7 +66,8 @@ function onDocumentMouseDown( event )
 	// 	viewer.scenePointCloud.remove(plane);
 	// }
 
-}
+}*/
+
 function onMouseMove( event ) {
 	var camera = viewer.camera;
 
@@ -77,7 +82,7 @@ function onMouseMove( event ) {
 	raycaster.setFromCamera( mouse, camera );
 
 	// create an array containing all objects in the scene with which the ray intersects
-	var intersects = raycaster.intersectObjects( [cube] );
+	var intersects = raycaster.intersectObjects( [cube, cube2, cylinder] );
 
 	// if there is one (or more) intersections
 	if ( intersects.length > 0 )
@@ -87,38 +92,17 @@ function onMouseMove( event ) {
 		intersects[ 0 ].object.material.color.setRGB(1,0.3,1);
 		intersects[ 0 ].object.material.opacity=[0.3];
 		intersects[ 0 ].object.geometry.colorsNeedUpdate = true;
-		plane_hs.visible=true
 	}
 	else {
-		cube.material.color.setRGB( 1,0,1);
 		cube.geometry.colorsNeedUpdate = true;
 		cube.material.opacity=[0];
-		// cube2.material.color.setRGB( 1,0,1);
-		// cube2.geometry.colorsNeedUpdate = true;
-		// cube2.material.opacity=[0];
-		plane_hs.visible=false
-	}
 
-	//for the loggia cube	// create an array containing all objects in the scene with which the ray intersects
-	var intersects_3 = raycaster.intersectObjects( [cube3] );
+		//cube2.material.color.setRGB( 0.3,0.3,1);
+		cube2.geometry.colorsNeedUpdate = true;
+		cube2.material.opacity=[0];
 
-	// if there is one (or more) intersections
-	if ( intersects_3.length > 0 )
-	{
-
-		// change the color of the closest face.
-		intersects_3[ 0 ].object.material.color.setRGB(1,0.3,1);
-		intersects_3[ 0 ].object.material.opacity=[0.3];
-		intersects_3[ 0 ].object.geometry.colorsNeedUpdate = true;
-		plane_hs2.visible=true
+		cylinder.geometry.colorsNeedUpdate = true;
+		cylinder.material.opacity=[0];
 	}
-	else {
-		cube3.material.color.setRGB( 1,0,1);
-		cube3.geometry.colorsNeedUpdate = true;
-		cube3.material.opacity=[0];
-		plane_hs2.visible=false
-	}
-	plane_hs.lookAt(viewer.camera.position);
-	plane_hs2.lookAt(viewer.camera.position);
 
 }

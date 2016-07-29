@@ -1041,12 +1041,27 @@ function initSceneList(){
 		elLabel[0].htmlFor = "scene_list_item_raster";
 		elLabel.addClass("menu-item");
 		elInput.click(function(event){
-			plane1.visible = event.target.checked;
+			plan1.visible = event.target.checked;
 		});
 		
 		elLi.append(elLabel);
 		elLabel.append(elInput);
 		elLabel.append(document.createTextNode("Floor Plan"));
+		
+		scenelist.append(elLi);
+
+		elInput[1].checked = false;
+		elInput[1].id = "scene_list_item_raster_2";
+		elLabel[1].id = "scene_list_item_label_raster_2";
+		elLabel[1].htmlFor = "scene_list_item_raster_2";
+		elLabel.addClass("menu-item");
+		elInput.click(function(event){
+			plan2.visible = event.target.checked;
+		});
+		
+		elLi.append(elLabel);
+		elLabel.append(elInput);
+		elLabel.append(document.createTextNode("East Mosaic"));
 		
 		scenelist.append(elLi);
 
